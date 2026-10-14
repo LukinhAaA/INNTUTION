@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INNTUTION — Axtage & Folker | a state of intuition</title>
+    
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Configuração do Tailwind e Tipografia Oficial -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        deepblack: '#050505',
+                        brandred: '#e0082c',
+                    },
+                    fontFamily: {
+                        myriad: ['"Myriad Pro"', 'MyriadPro-Regular', '"Myriad Web Pro"', 'ui-sans-serif', 'system-ui', '-apple-system', 'BlinkMacSystemFont', '"Segoe UI"', 'Roboto', '"Helvetica Neue"', 'Arial', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        /* Declaração @font-face para Myriad Pro local e fallbacks limpos */
+        @font-face {
+            font-family: 'Myriad Pro';
+            src: local('Myriad Pro'), local('MyriadPro-Regular'), local('Myriad Web Pro');
+            font-weight: 400;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Myriad Pro';
+            src: local('Myriad Pro Light'), local('MyriadPro-Light');
+            font-weight: 300;
+            font-style: normal;
+        }
+        @font-face {
+            font-family: 'Myriad Pro';
+            src: local('Myriad Pro Semibold'), local('MyriadPro-Semibold'), local('Myriad Pro Bold'), local('MyriadPro-Bold');
+            font-weight: 600;
+            font-style: normal;
+        }
+
+        /* Reset e estética base */
+        body {
+            background-color: #050505;
+            color: #f5f5f5;
+            font-family: 'Myriad Pro', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            overflow-x: hidden;
+            selection-background-color: #e0082c;
+            selection-color: #ffffff;
+        }
+
+        ::selection {
+            background: #e0082c;
+            color: #ffffff;
+        }
+
+        /* Filtro obrigatório para tornar a logo escura 100% branca brilhante */
+        .logo-white {
+            filter: brightness(0) invert(1);
+            -webkit-filter: brightness(0) invert(1);
+            transition: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), filter 0.4s ease;
+        }
+
+        .logo-white:hover {
+            filter: brightness(0) invert(1) drop-shadow(0 0 18px rgba(224, 8, 44, 0.55));
+        }
+
+        /* Glow radial sutil no topo da página que se funde com o preto #050505 */
+        .top-crimson-ambient {
+            background: radial-gradient(
+                ellipse 75% 48% at 50% 0%,
+                rgba(224, 8, 44, 0.22) 0%,
+                rgba(224, 8, 44, 0.08) 42%,
+                rgba(5, 5, 5, 0) 80%
+            );
+        }
+
+        .ambient- crimson-spot {
+            background: radial-gradient(
+                circle at 50% 50%,
+                rgba(224, 8, 44, 0.11) 0%,
+                rgba(5, 5, 5, 0) 70%
+            );
+        }
+
+        /* Máscara radial para a Foto Principal (Hero) fundir totalmente ao #050505 */
+        .hero-radial-mask {
+            -webkit-mask-image: radial-gradient(ellipse 68% 68% at 50% 48%, #000000 35%, rgba(0, 0, 0, 0.65) 62%, transparent 96%);
+            mask-image: radial-gradient(ellipse 68% 68% at 50% 48%, #000000 35%, rgba(0, 0, 0, 0.65) 62%, transparent 96%);
+        }
+
+        /* Máscara radial orgânica para a foto P&B da Biografia */
+        .bio-radial-mask {
+            -webkit-mask-image: radial-gradient(ellipse 76% 78% at 50% 50%, #000000 45%, rgba(0, 0, 0, 0.5) 75%, transparent 98%);
+            mask-image: radial-gradient(ellipse 76% 78% at 50% 50%, #000000 45%, rgba(0, 0, 0, 0.5) 75%, transparent 98%);
+        }
+
+        /* Máscara suave para os itens de Fragmentos Visuais (Fotos e Vídeos) sem bordas duras */
+        .fragment-organic-mask {
+            -webkit-mask-image: radial-gradient(ellipse 84% 84% at 50% 50%, #000000 52%, rgba(0, 0, 0, 0.65) 78%, transparent 100%);
+            mask-image: radial-gradient(ellipse 84% 84% at 50% 50%, #000000 52%, rgba(0, 0, 0, 0.65) 78%, transparent 100%);
+        }
+
+        /* Animação de Ondas Sonoras Minimalistas (#e0082c) */
+        @keyframes soundwave {
+            0%, 100% { transform: scaleY(0.25); opacity: 0.45; }
+            50% { transform: scaleY(1); opacity: 1; }
+        }
+        .eq-bar {
+            transform-origin: bottom;
+            animation: soundwave 1.4s ease-in-out infinite;
+        }
+        .eq-bar:nth-child(1) { animation-duration: 1.1s; animation-delay: 0.1s; }
+        .eq-bar:nth-child(2) { animation-duration: 1.5s; animation-delay: 0.3s; }
+        .eq-bar:nth-child(3) { animation-duration: 0.9s; animation-delay: 0.0s; }
+        .eq-bar:nth-child(4) { animation-duration: 1.3s; animation-delay: 0.4s; }
+        .eq-bar:nth-child(5) { animation-duration: 1.0s; animation-delay: 0.2s; }
+        .eq-bar:nth-child(6) { animation-duration: 1.6s; animation-delay: 0.5s; }
+        .eq-bar:nth-child(7) { animation-duration: 1.2s; animation-delay: 0.15s; }
+
+        /* Fusão dark para o embed do SoundCloud sem aspecto de caixa branca */
+        .sc-dark-blend {
+            filter: invert(1) hue-rotate(180deg) contrast(1.08) brightness(0.92);
+            mix-blend-mode: screen;
+            -webkit-mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+            mask-image: linear-gradient(to right, transparent 0%, black 6%, black 94%, transparent 100%);
+            opacity: 0.85;
+            transition: opacity 0.4s ease;
+        }
+        .sc-dark-blend:hover {
+            opacity: 1;
+        }
+
+        /* Animações sutis de entrada editorial */
+        .reveal-element {
+            opacity: 0;
+            transform: translateY(24px);
+            transition: opacity 1.1s cubic-bezier(0.16, 1, 0.3, 1), transform 1.1s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .reveal-element.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Linha de navegação animada */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -4px;
+            width: 0%;
+            height: 1px;
+            background-color: #e0082c;
+            transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Custom Scrollbar minimalista */
+        ::-webkit-scrollbar {
+            width: 5px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #050505;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #222222;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #e0082c;
+        }
+    </style>
+</head>
+<body class="bg-deepblack text-neutral-100 antialiased selection:bg-brandred selection:text-white relative">
+
+    <!-- Brilho/Glow Radial #e0082c no topo que se funde perfeitamente com o preto #050505 -->
+    <div class="fixed top-0 left-0 right-0 h-[75vh] top-crimson-ambient pointer-events-none z-0"></div>
+
+    <!-- 1. HEADER FIXO COM NAVEGAÇÃO LIMPA -->
+    <header id="navbar" class="fixed top-0 left-0 w-full z-50 transition-all duration-500 py-6 px-6 md:px-14 lg:px-20 bg-gradient-to-b from-[#050505]/95 via-[#050505]/60 to-transparent">
+        <div class="max-w-7xl mx-auto flex items-center justify-between">
+            <!-- Logo Header em branco brilhante -->
+            <a href="#hero" class="block focus:outline-none group" aria-label="INNTUTION Home">
+                <img 
+                    src="download.png" 
+                    alt="INNTUTION Logo" 
+                    class="logo-white h-7 sm:h-8 md:h-9 w-auto object-contain"
+                    onerror="this.outerHTML='<span class=\'text-white font-semibold tracking-[0.38em] text-lg sm:text-xl\'>INNTUTION</span>'"
+                >
+            </a>
+
+            <!-- Navegação Desktop -->
+            <nav class="hidden md:flex items-center space-x-10 lg:space-x-12 text-xs uppercase tracking-[0.28em] text-neutral-300 font-light">
+                <a href="#projeto" class="nav-link hover:text-white transition-colors duration-300">O Projeto</a>
+                <a href="#sonic" class="nav-link hover:text-white transition-colors duration-300">Sonic Identity</a>
+                <a href="#fragmentos" class="nav-link hover:text-white transition-colors duration-300">Fragmentos</a>
+                <a href="#contato" class="nav-link hover:text-white transition-colors duration-300">Contato</a>
+                <a href="https://www.instagram.com/inntution/" target="_blank" rel="noopener noreferrer" class="text-white hover:text-brandred transition-colors duration-300 flex items-center space-x-1 tracking-[0.25em]">
+                    <span>@INNTUTION</span>
+                    <span class="text-brandred text-[11px]">↗</span>
+                </a>
+            </nav>
+
+            <!-- Botão Menu Mobile Minimalista -->
+            <button id="mobile-menu-btn" class="md:hidden text-neutral-300 hover:text-brandred transition-colors focus:outline-none p-2" aria-label="Abrir Menu">
+                <div class="w-6 flex flex-col items-end space-y-1.5">
+                    <span id="bar-1" class="block h-[1px] w-6 bg-current transition-transform duration-300"></span>
+                    <span id="bar-2" class="block h-[1px] w-4 bg-brandred transition-opacity duration-300"></span>
+                    <span id="bar-3" class="block h-[1px] w-5 bg-current transition-transform duration-300"></span>
+                </div>
+            </button>
+        </div>
+
+        <!-- Navegação Mobile Fluida (Sem caixas duras, fundo escuro translúcido) -->
+        <div id="mobile-menu" class="md:hidden hidden pt-8 pb-6 px-2 bg-gradient-to-b from-[#050505]/95 to-transparent">
+            <nav class="flex flex-col space-y-5 text-xs uppercase tracking-[0.3em] text-neutral-300 font-light items-end">
+                <a href="#projeto" class="mobile-nav-link hover:text-brandred transition-colors">O Projeto</a>
+                <a href="#sonic" class="mobile-nav-link hover:text-brandred transition-colors">Sonic Identity</a>
+                <a href="#fragmentos" class="mobile-nav-link hover:text-brandred transition-colors">Fragmentos</a>
+                <a href="#contato" class="mobile-nav-link hover:text-brandred transition-colors">Contato</a>
+                <a href="https://www.instagram.com/inntution/" target="_blank" rel="noopener noreferrer" class="mobile-nav-link text-white hover:text-brandred transition-colors flex items-center space-x-1">
+                    <span>@INNTUTION</span>
+                    <span class="text-brandred">↗</span>
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
+    <main class="relative z-10">
+
+        <!-- 2. HERO SECTION -->
+        <section id="hero" class="min-h-screen flex flex-col items-center justify-center pt-28 pb-20 px-6 md:px-14 relative overflow-hidden">
+            
+            <!-- Logo GIGANTE e Legível na Hero Section -->
+            <div class="w-full flex justify-center mb-4 md:mb-6 z-20 reveal-element">
+                <img 
+                    src="download.png" 
+                    alt="INNTUTION" 
+                    class="logo-white w-full max-w-[320px] sm:max-w-[440px] md:max-w-[580px] h-auto object-contain select-none"
+                    onerror="this.outerHTML='<h1 class=\'text-white font-light tracking-[0.42em] text-4xl sm:text-6xl md:text-7xl lg:text-8xl text-center py-4\'>INNTUTION</h1>'"
+                >
+            </div>
+
+            <!-- Foto Principal (2-MK4_9732.jpg) com Máscara Radial suave fundindo ao preto #050505 -->
+            <div class="relative w-full max-w-4xl mx-auto -my-4 sm:-my-8 md:-my-12 flex justify-center items-center z-10 reveal-element" style="transition-delay: 150ms;">
+                <!-- Aura sutil vermelha atrás da imagem quente -->
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(224,8,44,0.14)_0%,transparent_68%)] pointer-events-none"></div>
+                
+                <img 
+                    src="2-MK4_9732.jpg" 
+                    alt="INNTUTION — Axtage & Folker" 
+                    class="hero-radial-mask w-full max-h-[72vh] object-contain object-center select-none transition-transform duration-1000 ease-out hover:scale-[1.015]"
+                    onerror="this.src='https://placehold.co/1200x900/050505/e0082c?text=2-MK4_9732.jpg'"
+                >
+            </div>
+
+            <!-- Lema Oficial (Logo abaixo da Hero Image, flutuando sobre o fundo escuro) -->
+            <div class="relative z-20 mt-4 sm:mt-6 text-center flex flex-col items-center space-y-3 reveal-element" style="transition-delay: 300ms;">
+                <p class="text-lg sm:text-xl md:text-2xl font-light tracking-[0.22em] text-neutral-200 lowercase">
+                    a state of intuition.
+                </p>
+                
+                <p class="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-normal tracking-[0.14em] text-white">
+                    dance by instinct! <span class="text-brandred font-light mx-1.5 select-none">|</span> understand later?
+                </p>
+                
+                <div class="pt-3 flex items-center justify-center space-x-3 text-xs sm:text-sm md:text-base tracking-[0.25em] text-neutral-400 font-light">
+                    <a href="https://www.instagram.com/axtage__wav/" target="_blank" rel="noopener noreferrer" class="nav-link hover:text-white transition-colors duration-300">
+                        @axtage__wav
+                    </a>
+                    <span class="text-brandred text-lg sm:text-xl leading-none select-none">∞</span>
+                    <a href="https://www.instagram.com/folkermusic/" target="_blank" rel="noopener noreferrer" class="nav-link hover:text-white transition-colors duration-300">
+                        @folkermusic
+                    </a>
+                </div>
+            </div>
+
+            <!-- Indicador minimalista de rolagem -->
+            <a href="#projeto" aria-label="Rolar para O Projeto" class="mt-16 opacity-50 hover:opacity-100 transition-opacity duration-500 flex flex-col items-center group">
+                <span class="w-[1px] h-12 bg-gradient-to-b from-brandred via-neutral-600 to-transparent group-hover:h-16 transition-all duration-500"></span>
+            </a>
+        </section>
+
+        <!-- 3. SEÇÃO "O PROJETO" (Layout Editorial / Assimétrico sem caixas ou cards) -->
+        <section id="projeto" class="py-24 md:py-36 px-6 md:px-14 lg:px-24 relative">
+            <!-- Luz ambiente sutil ao fundo -->
+            <div class=" -z-10 absolute top-1/3 right-0 w-[45vw] h-[45vw] bg-[radial-gradient(circle,rgba(224,8,44,0.07)_0%,transparent_70%)] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto">
+                <!-- Cabeçalho editorial da seção -->
+                <div class="mb-16 md:mb-24 reveal-element">
+                    <span class="text-brandred text-xs uppercase tracking-[0.4em] block mb-2">01 / Identidade</span>
+                    <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.25em] uppercase text-white">
+                        O Projeto
+                    </h2>
+                </div>
+
+                <!-- Grid Assimétrico Editorial -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+                    
+                    <!-- Coluna da Foto Biografia P&B (6-MK4_9749.jpg) respeitando proporção original e com máscara suave -->
+                    <div class="lg:col-span-5 xl:col-span-5 flex justify-center lg:justify-start reveal-element">
+                        <div class="relative w-full max-w-md lg:max-w-none">
+                            <img 
+                                src="6-MK4_9749.jpg" 
+                                alt="Axtage & Folker — INNTUTION P&B" 
+                                class="bio-radial-mask w-full h-auto object-contain select-none grayscale contrast-125 transition-all duration-1000 hover:scale-[1.01]"
+                                onerror="this.src='https://placehold.co/800x1050/050505/888888?text=6-MK4_9749.jpg'"
+                            >
+                        </div>
+                    </div>
+
+                    <!-- Coluna de Texto Flutuante sobre o preto profundo #050505 (Zero cards/caixas) -->
+                    <div class="lg:col-span-7 xl:col-span-6 xl:col-start-7 flex flex-col space-y-8 reveal-element" style="transition-delay: 150ms;">
+                        
+                        <p class="text-lg sm:text-xl md:text-2xl font-light leading-relaxed text-neutral-200 tracking-wide">
+                            <strong class="font-normal text-white tracking-[0.12em]">INNTUTION</strong> é um projeto de música eletrônica que nasce do encontro entre <span class="text-white">Axtage</span> e <span class="text-white">Folker</span>, amigos há mais de 15 anos que no projeto, transformam suas experiências complementares em uma identidade sonora e visual compartilhada.
+                        </p>
+
+                        <p class="text-base sm:text-lg md:text-xl font-light leading-relaxed text-neutral-300 tracking-wide lg:pl-8">
+                            O projeto une a produção e a experiência musical de Folker à curadoria musical e vivência de pista de Axtage.
+                        </p>
+
+                        <p class="text-base sm:text-lg md:text-xl font-light leading-relaxed text-neutral-300 tracking-wide lg:pl-8">
+                            Indie Dance e Melodic Techno são pontos de partida, não fronteiras, sem se prender a gêneros, o duo explora texturas analógicas, melodias e gêneros musicais de diferentes épocas.
+                        </p>
+
+                        <!-- Destaque / Citação fluindo de forma limpa com detalhe sutil em #e0082c -->
+                        <blockquote class="pt-6 lg:pt-10 relative">
+                            <span class="block w-12 h-[1px] bg-brandred mb-6"></span>
+                            <p class="text-xl sm:text-2xl md:text-[26px] font-light italic leading-snug text-white tracking-wide">
+                                “O contraste entre suas visões dá forma ao som; a intuição conduz a seleção e a construção dos sets. Na pista, o convite é dançar por instinto e deixar a interpretação para depois.”
+                            </p>
+                        </blockquote>
+
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- NOVA SEÇÃO: SONIC IDENTITY // AXTAGE & FOLKER (Zero caixas/cards, tipografia flutuante e frequências sonoras) -->
+        <section id="sonic" class="py-20 md:py-32 px-6 md:px-14 lg:px-24 relative">
+            <!-- Brilho ambiente sutil em #e0082c -->
+            <div class="-z-10 absolute top-1/2 left-1/4 -translate-y-1/2 w-[50vw] h-[50vw] bg-[radial-gradient(circle,rgba(224,8,44,0.08)_0%,transparent_70%)] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto">
+                <!-- Cabeçalho Editorial Assimétrico -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-14 md:mb-20 reveal-element">
+                    <div>
+                        <span class="text-brandred text-xs uppercase tracking-[0.4em] block mb-2">02 / Frequências & Sets</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.25em] uppercase text-white">
+                            Sonic Identity <span class="text-brandred font-light">//</span> Axtage & Folker
+                        </h2>
+                    </div>
+
+                    <!-- Equalizador Minimalista Animado em #e0082c -->
+                    <div class="flex items-center space-x-4 mt-6 md:mt-0">
+                        <div class="flex items-end space-x-1 h-5" aria-hidden="true">
+                            <span class="eq-bar w-[2px] h-full bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-4 bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-full bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-3 bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-5 bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-2 bg-brandred block"></span>
+                            <span class="eq-bar w-[2px] h-full bg-brandred block"></span>
+                        </div>
+                        <span class="text-xs uppercase tracking-[0.32em] text-neutral-400 font-light">
+                            Indie Dance · Melodic Techno · Analog Textures
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Layout Editorial Assimétrico Flutuante (Sem caixas, separado apenas por linhas capilares) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+                    
+                    <!-- Coluna Esquerda: Curadoria & Acesso Direto ao SoundCloud -->
+                    <div class="lg:col-span-5 flex flex-col space-y-6 reveal-element">
+                        <p class="text-base sm:text-lg md:text-xl font-light leading-relaxed text-neutral-300 tracking-wide">
+                            Sets construídos pela intuição, mesclando a vivência de pista e curadoria de <span class="text-white">Axtage</span> com as texturas analógicas e produção de <span class="text-white">Folker</span>.
+                        </p>
+
+                        <div class="pt-2">
+                            <a 
+                                href="https://on.soundcloud.com/CttrTh9E9XALcUBpXb" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="inline-flex items-center space-x-4 group focus:outline-none py-2"
+                            >
+                                <span class="text-sm sm:text-base uppercase tracking-[0.28em] text-white group-hover:text-brandred transition-colors duration-300 font-normal">
+                                    OUVIR NO SOUNDCLOUD (AXTAGE)
+                                </span>
+                                <span class="text-brandred text-lg transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
+                            </a>
+                            <span class="block w-full max-w-xs h-[1px] bg-gradient-to-r from-brandred via-neutral-800 to-transparent mt-1"></span>
+                        </div>
+                    </div>
+
+                    <!-- Coluna Direita: Showcase Sonoro Interativo & Frequências Conectadas -->
+                    <div class="lg:col-span-7 flex flex-col space-y-10 reveal-element" style="transition-delay: 150ms;">
+                        
+                        <!-- Player SoundCloud Integrado com Fusão Dark (Sem aparência de card/caixa branca) -->
+                        <div class="w-full overflow-hidden relative">
+                            <div class="flex items-center justify-between text-[11px] uppercase tracking-[0.35em] text-neutral-400 mb-3">
+                                <span>Stream Direto // SoundCloud Stream</span>
+                                <a href="https://on.soundcloud.com/CttrTh9E9XALcUBpXb" target="_blank" rel="noopener noreferrer" class="text-brandred hover:text-white transition-colors">
+                                    Abrir Player Externo ↗
+                                </a>
+                            </div>
+                            <iframe 
+                                title="SoundCloud Player - Axtage / INNTUTION"
+                                width="100%" 
+                                height="125" 
+                                scrolling="no" 
+                                frameborder="no" 
+                                allow="autoplay" 
+                                class="sc-dark-blend w-full"
+                                src="https://w.soundcloud.com/player/?url=https%3A//on.soundcloud.com/CttrTh9E9XALcUBpXb&color=%23e0082c&inverse=false&auto_play=false&show_user=true&show_comments=false&show_reposts=false&show_teaser=false">
+                            </iframe>
+                        </div>
+
+                        <!-- Índice Tipográfico de Conexões Sonoras e Visuais (Apenas linhas finas divisórias) -->
+                        <div class="flex flex-col divide-y divide-neutral-900 border-t border-b border-neutral-900">
+                            
+                            <!-- Item 01: SoundCloud Axtage -->
+                            <a 
+                                href="https://on.soundcloud.com/CttrTh9E9XALcUBpXb" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="py-5 flex items-center justify-between group transition-colors duration-300"
+                            >
+                                <div class="flex items-center space-x-5">
+                                    <span class="text-xs text-brandred tracking-[0.3em] font-light">01</span>
+                                    <div>
+                                        <span class="block text-sm sm:text-base uppercase tracking-[0.25em] text-white group-hover:text-brandred transition-colors">
+                                            SoundCloud — Axtage
+                                        </span>
+                                        <span class="block text-xs tracking-[0.18em] text-neutral-500 font-light mt-0.5">
+                                            Sets, Mixes & Curated Frequencies
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="text-xs uppercase tracking-[0.3em] text-neutral-400 group-hover:text-white flex items-center space-x-2">
+                                    <span class="hidden sm:inline">Play</span>
+                                    <span class="text-brandred transform group-hover:translate-x-1 transition-transform">↗</span>
+                                </span>
+                            </a>
+
+                            <!-- Item 02: Instagram Oficial @inntution -->
+                            <a 
+                                href="https://www.instagram.com/inntution/" 
+                                target="_blank" 
+                                rel="noopener noreferrer" 
+                                class="py-5 flex items-center justify-between group transition-colors duration-300"
+                            >
+                                <div class="flex items-center space-x-5">
+                                    <span class="text-xs text-brandred tracking-[0.3em] font-light">02</span>
+                                    <div>
+                                        <span class="block text-sm sm:text-base uppercase tracking-[0.25em] text-white group-hover:text-brandred transition-colors">
+                                            Instagram — @inntution
+                                        </span>
+                                        <span class="block text-xs tracking-[0.18em] text-neutral-500 font-light mt-0.5">
+                                            Identidade Visual, Reels de Pista & Releases
+                                        </span>
+                                    </div>
+                                </div>
+                                <span class="text-xs uppercase tracking-[0.3em] text-neutral-400 group-hover:text-white flex items-center space-x-2">
+                                    <span class="hidden sm:inline">Explorar</span>
+                                    <span class="text-brandred transform group-hover:translate-x-1 transition-transform">↗</span>
+                                </span>
+                            </a>
+
+                            <!-- Item 03: Artistas Conectados -->
+                            <div class="py-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                                <div class="flex items-center space-x-5">
+                                    <span class="text-xs text-brandred tracking-[0.3em] font-light">03</span>
+                                    <div>
+                                        <span class="block text-sm sm:text-base uppercase tracking-[0.25em] text-neutral-200">
+                                            Perfis Individuais
+                                        </span>
+                                        <span class="block text-xs tracking-[0.18em] text-neutral-500 font-light mt-0.5">
+                                            Spotify · Beatport · Socials
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 pl-9 sm:pl-0 text-xs uppercase tracking-[0.25em]">
+                                    <a href="https://www.instagram.com/axtage__wav/" target="_blank" rel="noopener noreferrer" class="text-neutral-300 hover:text-brandred transition-colors">
+                                        @axtage__wav ↗
+                                    </a>
+                                    <span class="text-brandred">∞</span>
+                                    <a href="https://www.instagram.com/folkermusic/" target="_blank" rel="noopener noreferrer" class="text-neutral-300 hover:text-brandred transition-colors">
+                                        @folkermusic ↗
+                                    </a>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. SEÇÃO "FRAGMENTOS" (Galeria Editorial Fluida e Assimétrica de 4 Itens) -->
+        <section id="fragmentos" class="py-24 md:py-36 px-6 md:px-14 lg:px-24 relative">
+            <!-- Brilho vermelho sutil central -->
+            <div class="-z-10 absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[60vw] h-[60vw] bg-[radial-gradient(circle,rgba(224,8,44,0.06)_0%,transparent_65%)] pointer-events-none"></div>
+
+            <div class="max-w-7xl mx-auto">
+                <!-- Cabeçalho editorial da seção -->
+                <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 md:mb-28 reveal-element">
+                    <div>
+                        <span class="text-brandred text-xs uppercase tracking-[0.4em] block mb-2">03 / Atmosfera</span>
+                        <h2 class="text-2xl sm:text-3xl md:text-4xl font-light tracking-[0.25em] uppercase text-white">
+                            Fragmentos Visuais
+                        </h2>
+                    </div>
+                    <p class="text-xs sm:text-sm uppercase tracking-[0.3em] text-neutral-400 mt-4 md:mt-0 font-light">
+                        dance by instinct <span class="text-brandred">|</span> visual frequencies
+                    </p>
+                </div>
+
+                <!-- Grid Editorial Assimétrico de 4 itens respeitando proporções verticais/originais -->
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-y-20 md:gap-x-12 lg:gap-x-20 items-start">
+
+                    <!-- ITEM 1 (Vídeo): snapinsta-1792007184144.mp4 -->
+                    <div class="md:col-span-6 lg:col-span-5 flex flex-col items-start reveal-element">
+                        <div class="w-full relative group">
+                            <video 
+                                src="snapinsta-1792007184144.mp4" 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline 
+                                class="fragment-organic-mask w-full h-auto object-contain transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                            ></video>
+                        </div>
+                        <div class="mt-3 pl-4 flex items-center space-x-3 text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandred animate-pulse"></span>
+                            <span>I — Live Frequency</span>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 2 (Foto): 8-MK4_9767.jpg (Deslocada editorialmente para baixo em telas maiores) -->
+                    <div class="md:col-span-6 lg:col-span-6 lg:col-start-7 md:mt-24 lg:mt-36 flex flex-col items-end reveal-element" style="transition-delay: 150ms;">
+                        <div class="w-full relative group">
+                            <img 
+                                src="8-MK4_9767.jpg" 
+                                alt="INNTUTION Fragmento Visual II" 
+                                class="fragment-organic-mask w-full h-auto object-contain transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                                onerror="this.src='https://placehold.co/800x1100/050505/e0082c?text=8-MK4_9767.jpg'"
+                            >
+                        </div>
+                        <div class="mt-3 pr-4 flex items-center space-x-3 text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                            <span>II — Shared Vision</span>
+                            <span class="text-brandred">/</span>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 3 (Foto): 11-MK4_9792.jpg -->
+                    <div class="md:col-span-6 lg:col-span-6 flex flex-col items-start md:-mt-12 reveal-element">
+                        <div class="w-full relative group">
+                            <img 
+                                src="11-MK4_9792.jpg" 
+                                alt="INNTUTION Fragmento Visual III" 
+                                class="fragment-organic-mask w-full h-auto object-contain transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                                onerror="this.src='https://placehold.co/800x1100/050505/e0082c?text=11-MK4_9792.jpg'"
+                            >
+                        </div>
+                        <div class="mt-3 pl-4 flex items-center space-x-3 text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                            <span class="text-brandred">/</span>
+                            <span>III — Analog Textures</span>
+                        </div>
+                    </div>
+
+                    <!-- ITEM 4 (Vídeo): IMG_9668.mp4 (Deslocado editorialmente) -->
+                    <div class="md:col-span-6 lg:col-span-5 lg:col-start-8 md:mt-20 lg:mt-28 flex flex-col items-end reveal-element" style="transition-delay: 150ms;">
+                        <div class="w-full relative group">
+                            <video 
+                                src="IMG_9668.mp4" 
+                                autoplay 
+                                loop 
+                                muted 
+                                playsinline 
+                                class="fragment-organic-mask w-full h-auto object-contain transition-transform duration-1000 ease-out group-hover:scale-[1.02]"
+                            ></video>
+                        </div>
+                        <div class="mt-3 pr-4 flex items-center space-x-3 text-[11px] uppercase tracking-[0.35em] text-neutral-500">
+                            <span>IV — Instinct on the Floor</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-brandred animate-pulse"></span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Call-to-Action Editorial Flutuante para o Instagram Oficial (@inntution) -->
+                <div class="mt-20 md:mt-28 flex flex-col items-center text-center reveal-element">
+                    <span class="w-[1px] h-10 bg-gradient-to-b from-transparent via-brandred to-transparent mb-6"></span>
+                    <a 
+                        href="https://www.instagram.com/inntution/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="group inline-flex items-center space-x-3 text-xs sm:text-sm md:text-base uppercase tracking-[0.35em] text-neutral-200 hover:text-white transition-colors duration-300"
+                    >
+                        <span class="nav-link">EXPLORAR ARQUIVO COMPLETO EM @INNTUTION</span>
+                        <span class="text-brandred text-lg transform group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform duration-300">↗</span>
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. SEÇÃO "CONTATO" & FOOTER -->
+        <footer id="contato" class="pt-28 pb-16 px-6 md:px-14 lg:px-24 relative overflow-hidden">
+            <!-- Brilho radial sutil na base -->
+            <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-full max-w-4xl h-80 bg-[radial-gradient(ellipse_at_bottom,rgba(224,8,44,0.15)_0%,transparent_72%)] pointer-events-none"></div>
+
+            <div class="max-w-5xl mx-auto flex flex-col items-center text-center relative z-10">
+                
+                <span class="text-brandred text-xs uppercase tracking-[0.45em] mb-4 reveal-element">
+                    04 / Bookings & Management
+                </span>
+
+                <p class="text-sm sm:text-base uppercase tracking-[0.3em] text-neutral-400 font-light mb-8 reveal-element">
+                    a state of intuition.
+                </p>
+
+                <!-- Email Principal Flutuante com Assunto Automático para Bookings e Hover em #e0082c -->
+                <div class="my-4 reveal-element" style="transition-delay: 100ms;">
+                    <a 
+                        href="mailto:contactinntution@gmail.com?subject=Booking%20Inquiry%20-%20INNTUTION" 
+                        class="text-xl sm:text-3xl md:text-4xl lg:text-5xl font-light tracking-[0.12em] text-white hover:text-brandred transition-colors duration-500 break-all"
+                    >
+                        contactinntution@gmail.com
+                    </a>
+                </div>
+
+                <!-- Micro-ações de Booking: Copiar E-mail ou Abrir Cliente de E-mail -->
+                <div class="mt-5 flex flex-wrap items-center justify-center gap-6 reveal-element" style="transition-delay: 180ms;">
+                    <button 
+                        id="copy-email-btn" 
+                        type="button"
+                        class="text-xs uppercase tracking-[0.35em] text-neutral-300 hover:text-brandred transition-colors duration-300 py-2 px-3 focus:outline-none"
+                    >
+                        <span id="copy-email-text">[ COPIAR E-MAIL ]</span>
+                    </button>
+
+                    <a 
+                        href="mailto:contactinntution@gmail.com?subject=Booking%20Inquiry%20-%20INNTUTION"
+                        class="text-xs uppercase tracking-[0.35em] text-neutral-400 hover:text-white transition-colors duration-300 py-2 px-3 flex items-center space-x-1.5"
+                    >
+                        <span>[ ENVIAR PROPOSTA DE BOOKING</span>
+                        <span class="text-brandred">↗</span>
+                        <span>]</span>
+                    </a>
+                </div>
+
+                <!-- Links Principais: Instagram Oficial & SoundCloud -->
+                <div class="mt-14 flex flex-wrap items-center justify-center gap-x-8 gap-y-4 text-xs sm:text-sm uppercase tracking-[0.32em] text-white font-light reveal-element" style="transition-delay: 220ms;">
+                    <a 
+                        href="https://www.instagram.com/inntution/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="nav-link hover:text-brandred transition-colors duration-300 flex items-center space-x-1.5"
+                    >
+                        <span>INSTAGRAM (@INNTUTION)</span>
+                        <span class="text-brandred">↗</span>
+                    </a>
+                    <span class="text-neutral-700 select-none">|</span>
+                    <a 
+                        href="https://on.soundcloud.com/CttrTh9E9XALcUBpXb" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="nav-link hover:text-brandred transition-colors duration-300 flex items-center space-x-1.5"
+                    >
+                        <span>SOUNDCLOUD (AXTAGE)</span>
+                        <span class="text-brandred">↗</span>
+                    </a>
+                </div>
+
+                <!-- Links Individuais dos Artistas -->
+                <div class="mt-6 flex items-center justify-center space-x-5 text-sm sm:text-base tracking-[0.28em] text-neutral-400 font-light reveal-element" style="transition-delay: 260ms;">
+                    <a 
+                        href="https://www.instagram.com/axtage__wav/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="hover:text-white transition-colors duration-300"
+                    >
+                        @axtage__wav
+                    </a>
+                    <span class="text-brandred text-xl select-none">∞</span>
+                    <a 
+                        href="https://www.instagram.com/folkermusic/" 
+                        target="_blank" 
+                        rel="noopener noreferrer" 
+                        class="hover:text-white transition-colors duration-300"
+                    >
+                        @folkermusic
+                    </a>
+                </div>
+
+                <!-- Logo no Footer com filter: brightness(0) invert(1) -->
+                <div class="mt-20 mb-8 reveal-element" style="transition-delay: 320ms;">
+                    <a href="#hero" aria-label="Voltar ao topo">
+                        <img 
+                            src="download.png" 
+                            alt="INNTUTION Logo Footer" 
+                            class="logo-white h-10 sm:h-12 md:h-14 w-auto mx-auto object-contain opacity-90 hover:opacity-100"
+                            onerror="this.outerHTML='<span class=\'text-white font-light tracking-[0.4em] text-2xl\'>INNTUTION</span>'"
+                        >
+                    </a>
+                </div>
+
+                <!-- Assinatura Final Minimalista -->
+                <div class="w-full pt-8 flex flex-col sm:flex-row items-center justify-between text-[11px] uppercase tracking-[0.3em] text-neutral-600 font-light gap-4">
+                    <span>© INNTUTION — Axtage & Folker</span>
+                    <span>dance by instinct! <span class="text-brandred">|</span> understand later?</span>
+                </div>
+            </div>
+        </footer>
+
+    </main>
+
+    <!-- Scripts de Interatividade Suave (Menu Mobile, Scroll Reveal e Copiar E-mail) -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. Menu Mobile Toggle
+            const menuBtn = document.getElementById('mobile-menu-btn');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+            if (menuBtn && mobileMenu) {
+                menuBtn.addEventListener('click', () => {
+                    mobileMenu.classList.toggle('hidden');
+                });
+
+                mobileLinks.forEach(link => {
+                    link.addEventListener('click', () => {
+                        mobileMenu.classList.add('hidden');
+                    });
+                });
+            }
+
+            // 2. Intersection Observer para revelar elementos suavemente no scroll
+            const revealElements = document.querySelectorAll('.reveal-element');
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px 0px -60px 0px',
+                threshold: 0.12
+            };
+
+            const revealObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            revealElements.forEach(el => revealObserver.observe(el));
+
+            // 3. Copiar e-mail para área de transferência (usando execCommand para total compatibilidade)
+            const copyBtn = document.getElementById('copy-email-btn');
+            const copyText = document.getElementById('copy-email-text');
+            const emailAddress = 'contactinntution@gmail.com';
+
+            if (copyBtn && copyText) {
+                copyBtn.addEventListener('click', () => {
+                    const tempInput = document.createElement('textarea');
+                    tempInput.value = emailAddress;
+                    tempInput.style.position = 'fixed';
+                    tempInput.style.opacity = '0';
+                    document.body.appendChild(tempInput);
+                    tempInput.select();
+                    
+                    try {
+                        document.execCommand('copy');
+                        copyText.textContent = '[ E-MAIL COPIADO: CONTACTINNTUTION@GMAIL.COM ]';
+                        copyText.classList.add('text-brandred');
+                        setTimeout(() => {
+                            copyText.textContent = '[ COPIAR E-MAIL ]';
+                            copyText.classList.remove('text-brandred');
+                        }, 3000);
+                    } catch (err) {
+                        copyText.textContent = emailAddress;
+                    } finally {
+                        document.body.removeChild(tempInput);
+                    }
+                });
+            }
+
+            // 4. Garantir autoplay silencioso nos vídeos dos Fragmentos Visuais
+            const videos = document.querySelectorAll('video');
+            videos.forEach(video => {
+                video.muted = true;
+                video.play().catch(() => {
+                    // Caso o navegador aguarde interação inicial, toca ao primeiro toque/clique
+                    document.body.addEventListener('click', () => {
+                        video.play().catch(() => {});
+                    }, { once: true });
+                });
+            });
+        });
+    </script>
+</body>
+</html>
